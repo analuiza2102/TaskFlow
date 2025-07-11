@@ -1,0 +1,158 @@
+# TaskFlow - Gerenciador de Tarefas
+
+Um sistema completo de gerenciamento de tarefas desenvolvido com HTML, CSS, JavaScript e Bootstrap.
+
+## 📁 Estrutura do Projeto
+
+```
+TaskFlow/
+├── index.html              # Página principal de entrada/login
+├── login.html              # Página de login dedicada (opcional)  
+├── dashboard.html           # Dashboard principal da aplicação
+├── assets/
+│   ├── css/
+│   │   └── style.css       # Estilos customizados
+│   └── js/
+│       ├── auth.js         # Sistema de autenticação
+│       └── app.js          # Lógica principal do dashboard
+└── README.md               # Documentação do projeto
+```
+
+## 🚀 Funcionalidades
+
+
+![Demonstração do TaskFlow](assets/demo-taskflow.gif)
+
+
+### ✅ Sistema de Autenticação
+- Login e cadastro de usuários
+- Validação de formulários em tempo real
+- Autenticação persistente (Remember Me)
+- Redirecionamento automático
+- Validação de sessão
+
+### ✅ Dashboard
+- Visão geral das tarefas
+- Estatísticas em tempo real
+- Gráficos interativos (Chart.js)
+- Cards informativos
+- Lista de tarefas recentes
+
+### ✅ Gerenciamento de Tarefas
+- CRUD completo (Criar, Ler, Atualizar, Deletar)
+- Filtros avançados (status, prioridade, categoria)
+- Busca por texto
+- Categorização de tarefas
+- Sistema de prioridades
+- Controle de status
+- Datas de vencimento
+
+### ✅ Interface e Experiência
+- Design responsivo (mobile-first)
+- Tema claro/escuro
+- Sidebar fixa e colapsível
+- Animações suaves
+- Notificações visuais
+- Interface moderna com Bootstrap 5
+
+## 🛠️ Tecnologias Utilizadas
+
+- **HTML5** - Estrutura das páginas
+- **CSS3** - Estilos customizados
+- **JavaScript ES6+** - Lógica da aplicação
+- **Bootstrap 5.3.2** - Framework CSS
+- **Bootstrap Icons** - Ícones
+- **Chart.js 4.4.0** - Gráficos interativos
+- **LocalStorage/SessionStorage** - Persistência de dados
+
+## 📱 Fluxo de Navegação
+
+1. **index.html** → Página de entrada
+   - Verifica autenticação
+   - Login/Cadastro de usuários
+   - Redirecionamento automático
+
+2. **dashboard.html** → Dashboard principal
+   - Verifica autenticação obrigatória
+   - Interface completa da aplicação
+   - Todas as funcionalidades de gerenciamento
+
+3. **login.html** → Login dedicado (opcional)
+   - Alternativa ao index.html
+   - Mesma funcionalidade de autenticação
+
+## 🎯 Como Usar
+
+### 1. Login de Teste
+- **Email:** admin@taskflow.com
+- **Senha:** admin123
+
+### 2. Ou qualquer email válido com senha de 6+ caracteres
+
+### 3. Navegação
+- Use a sidebar para navegar entre seções
+- Crie tarefas com o botão "Nova Tarefa"
+- Filtre e busque tarefas na seção "Tarefas"
+- Visualize estatísticas no Dashboard
+
+## 🔧 Configuração
+
+### Credenciais de Teste
+O sistema possui usuários de demonstração configurados em `assets/js/auth.js`:
+
+```javascript
+// Admin user
+email: admin@taskflow.com
+password: admin123
+```
+
+### Tarefas de Exemplo
+Tarefas de demonstração são criadas automaticamente em `assets/js/app.js`.
+
+### Personalização
+- **Temas:** Modifique as variáveis CSS em `assets/css/style.css`
+- **Categorias:** Adicione novas categorias nos formulários
+- **Funcionalidades:** Extend a lógica em `assets/js/app.js`
+
+## 📋 Funcionalidades Implementadas
+
+- ✅ Sistema de login/logout
+- ✅ Dashboard com estatísticas
+- ✅ CRUD completo de tarefas
+- ✅ Filtros e busca
+- ✅ Gráficos interativos
+- ✅ Design responsivo
+- ✅ Tema claro/escuro
+- ✅ Validação de formulários
+- ✅ Persistência de dados
+- ✅ Sidebar fixa
+- ✅ Notificações visuais
+
+## 🔮 Funcionalidades Futuras
+
+- 🔄 Categorias personalizadas
+- 🔄 Calendário de tarefas
+- 🔄 Relatórios avançados
+- 🔄 Exportação de dados
+- 🔄 Colaboração entre usuários
+- 🔄 API Backend
+- 🔄 Notificações push
+
+## 🎨 Personalização de Temas
+
+O sistema suporta tema claro e escuro automaticamente através de:
+- CSS custom properties
+- Bootstrap 5 theme system
+- JavaScript toggle
+
+## 📱 Responsividade
+
+- **Mobile first** design
+- Sidebar colapsível em mobile
+- Cards responsivos
+- Formulários otimizados para touch
+- Navegação adaptável
+
+---
+
+**TaskFlow** - Organize suas tarefas de forma inteligente! 🎯

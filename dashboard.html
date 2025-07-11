@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow - Dashboard</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Chart.js - Using specific version without source map issues -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <!-- Custom CSS -->
+    <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body class="dashboard-page">
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="bi bi-check-square-fill"></i>
+                    <span>TaskFlow</span>
+                </div>
+                <button class="sidebar-close d-lg-none" id="sidebarClose">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" data-section="dashboard">
+                            <i class="bi bi-house-door"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-section="tasks">
+                            <i class="bi bi-check-square"></i>
+                            <span>Tarefas</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-section="categories">
+                            <i class="bi bi-tags"></i>
+                            <span>Categorias</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-section="calendar">
+                            <i class="bi bi-calendar3"></i>
+                            <span>Calendário</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-section="reports">
+                            <i class="bi bi-bar-chart"></i>
+                            <span>Relatórios</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="avatar">
+                        <i class="bi bi-person-circle"></i>
+                    </div>
+                    <div class="user-details">
+                        <span class="user-name" id="userName">Usuário</span>
+                        <span class="user-email" id="userEmail">usuario@email.com</span>
+                    </div>
+                </div>
+                <button class="btn btn-outline-danger btn-sm" id="logoutBtn">
+                    <i class="bi bi-box-arrow-right"></i>
+                    Sair
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="sidebar-toggle d-lg-none" id="sidebarToggle">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    <h1 class="page-title" id="pageTitle">Dashboard</h1>
+                </div>
+
+                <div class="header-right">
+                    <div class="header-actions">
+                        <button class="btn btn-outline-secondary" id="themeToggle" title="Alternar tema">
+                            <i class="bi bi-moon-stars"></i>
+                        </button>
+                        <button class="btn btn-outline-secondary" id="notificationsBtn" title="Notificações">
+                            <i class="bi bi-bell"></i>
+                            <span class="notification-badge">3</span>
+                        </button>
+                        <button class="btn btn-primary" id="newTaskBtn">
+                            <i class="bi bi-plus-lg"></i>
+                            <span class="d-none d-sm-inline">Nova Tarefa</span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content">
+                <!-- Dashboard Section -->
+                <section id="dashboard-section" class="content-section active">
+                    <div class="dashboard-header">
+                        <div class="welcome-message">
+                            <h2>Bem-vindo de volta!</h2>
+                            <p>Aqui está um resumo das suas tarefas</p>
+                        </div>
+                        <div class="quick-actions">
+                            <button class="btn btn-primary" onclick="showSection('tasks')">
+                                <i class="bi bi-eye"></i>
+                                Ver Todas
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Stats Cards -->
+                    <div class="stats-grid">
+                        <div class="stat-card total">
+                            <div class="stat-icon">
+                                <i class="bi bi-check-square"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="totalTasks">0</h3>
+                                <p>Total de Tarefas</p>
+                            </div>
+                        </div>
+
+                        <div class="stat-card completed">
+                            <div class="stat-icon">
+                                <i class="bi bi-check-circle"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="completedTasks">0</h3>
+                                <p>Concluídas</p>
+                            </div>
+                        </div>
+
+                        <div class="stat-card pending">
+                            <div class="stat-icon">
+                                <i class="bi bi-clock"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="pendingTasks">0</h3>
+                                <p>Pendentes</p>
+                            </div>
+                        </div>
+
+                        <div class="stat-card overdue">
+                            <div class="stat-icon">
+                                <i class="bi bi-exclamation-triangle"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="overdueTasks">0</h3>
+                                <p>Atrasadas</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts -->
+                    <div class="charts-grid">
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h4>Status das Tarefas</h4>
+                            </div>
+                            <div class="chart-content">
+                                <canvas id="statusChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h4>Tarefas por Categoria</h4>
+                            </div>
+                            <div class="chart-content">
+                                <canvas id="categoryChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Tasks -->
+                    <div class="recent-tasks">
+                        <div class="section-header">
+                            <h4>Tarefas Recentes</h4>
+                            <button class="btn btn-outline-primary btn-sm" onclick="showSection('tasks')">
+                                Ver Todas
+                            </button>
+                        </div>
+                        <div class="task-list" id="recentTasksList">
+                            <!-- Tasks will be populated here -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Tasks Section -->
+                <section id="tasks-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Gerenciar Tarefas</h2>
+                        <button class="btn btn-primary" id="addTaskBtn">
+                            <i class="bi bi-plus-lg"></i>
+                            Nova Tarefa
+                        </button>
+                    </div>
+
+                    <!-- Filters -->
+                    <div class="filters-card">
+                        <div class="filters-header">
+                            <h5>
+                                <i class="bi bi-funnel"></i>
+                                Filtros
+                            </h5>
+                            <button class="btn btn-outline-secondary btn-sm" id="clearFilters">
+                                <i class="bi bi-x-circle"></i>
+                                Limpar
+                            </button>
+                        </div>
+                        <div class="filters-content">
+                            <div class="filter-group">
+                                <label for="searchTasks">Buscar</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-search"></i>
+                                    </span>
+                                    <input type="text" class="form-control" id="searchTasks" placeholder="Buscar tarefas...">
+                                </div>
+                            </div>
+
+                            <div class="filter-group">
+                                <label for="filterStatus">Status</label>
+                                <select class="form-select" id="filterStatus">
+                                    <option value="">Todos</option>
+                                    <option value="pendente">Pendente</option>
+                                    <option value="em_andamento">Em Andamento</option>
+                                    <option value="concluida">Concluída</option>
+                                    <option value="cancelada">Cancelada</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label for="filterPriority">Prioridade</label>
+                                <select class="form-select" id="filterPriority">
+                                    <option value="">Todas</option>
+                                    <option value="baixa">Baixa</option>
+                                    <option value="media">Média</option>
+                                    <option value="alta">Alta</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label for="filterCategory">Categoria</label>
+                                <select class="form-select" id="filterCategory">
+                                    <option value="">Todas</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tasks Grid -->
+                    <div class="tasks-grid" id="tasksGrid">
+                        <!-- Tasks will be populated here -->
+                    </div>
+
+                    <!-- Empty State -->
+                    <div class="empty-state" id="emptyState" style="display: none;">
+                        <div class="empty-icon">
+                            <i class="bi bi-inbox"></i>
+                        </div>
+                        <h3>Nenhuma tarefa encontrada</h3>
+                        <p>Comece criando sua primeira tarefa para organizar seu trabalho</p>
+                        <button class="btn btn-primary" onclick="showTaskModal()">
+                            <i class="bi bi-plus-lg"></i>
+                            Criar Primeira Tarefa
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Other sections placeholders -->
+                <section id="categories-section" class="content-section">
+                    <div class="placeholder-section">
+                        <div class="placeholder-icon">
+                            <i class="bi bi-tags"></i>
+                        </div>
+                        <h3>Categorias</h3>
+                        <p>Funcionalidade em desenvolvimento</p>
+                    </div>
+                </section>
+
+                <section id="calendar-section" class="content-section">
+                    <div class="placeholder-section">
+                        <div class="placeholder-icon">
+                            <i class="bi bi-calendar3"></i>
+                        </div>
+                        <h3>Calendário</h3>
+                        <p>Funcionalidade em desenvolvimento</p>
+                    </div>
+                </section>
+
+                <section id="reports-section" class="content-section">
+                    <div class="placeholder-section">
+                        <div class="placeholder-icon">
+                            <i class="bi bi-bar-chart"></i>
+                        </div>
+                        <h3>Relatórios</h3>
+                        <p>Funcionalidade em desenvolvimento</p>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Task Modal -->
+    <div class="modal fade" id="taskModal" tabindex="-1" aria-labelledby="taskModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="taskModalLabel">Nova Tarefa</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="taskForm">
+                        <div class="mb-3">
+                            <label for="taskTitle" class="form-label">Título *</label>
+                            <input type="text" class="form-control" id="taskTitle" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="taskDescription" class="form-label">Descrição</label>
+                            <textarea class="form-control" id="taskDescription" rows="3"></textarea>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="taskCategory" class="form-label">Categoria *</label>
+                                    <select class="form-select" id="taskCategory" required>
+                                        <option value="">Selecione uma categoria</option>
+                                        <option value="trabalho">Trabalho</option>
+                                        <option value="pessoal">Pessoal</option>
+                                        <option value="saude">Saúde</option>
+                                        <option value="educacao">Educação</option>
+                                        <option value="lazer">Lazer</option>
+                                        <option value="financeiro">Financeiro</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="taskPriority" class="form-label">Prioridade *</label>
+                                    <select class="form-select" id="taskPriority" required>
+                                        <option value="baixa">Baixa</option>
+                                        <option value="media" selected>Média</option>
+                                        <option value="alta">Alta</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="taskDueDate" class="form-label">Data de Vencimento *</label>
+                                    <input type="date" class="form-control" id="taskDueDate" required>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="taskStatus" class="form-label">Status</label>
+                                    <select class="form-select" id="taskStatus">
+                                        <option value="pendente" selected>Pendente</option>
+                                        <option value="em_andamento">Em Andamento</option>
+                                        <option value="concluida">Concluída</option>
+                                        <option value="cancelada">Cancelada</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="saveTaskBtn">Salvar Tarefa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Authentication check script -->
+    <script>
+        // Check authentication before loading the app
+        document.addEventListener('DOMContentLoaded', () => {
+            const sessionData = sessionStorage.getItem('authData');
+            const localData = localStorage.getItem('authData');
+            
+            if (!sessionData && !localData) {
+                // User is not authenticated, redirect to login
+                window.location.href = 'index.html';
+                return;
+            }
+        });
+    </script>
+    <!-- Custom JS -->
+    <script src="assets/js/app.js"></script>
+</body>
+</html>
